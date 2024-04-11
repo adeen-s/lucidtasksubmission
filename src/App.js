@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { QueryClientProvider } from "react-query";
+import queryClient from "./react-query-client";
+import FormulaInput from "./components/FormulaInput";
 
 function App() {
+  const containerStyle = {
+    margin: "20px 100px", // Center the container
+    padding: "20px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <div style={containerStyle}>
+          <FormulaInput />
+          {/* Any other components */}
+        </div>
+      </QueryClientProvider>
+    </>
   );
 }
 
