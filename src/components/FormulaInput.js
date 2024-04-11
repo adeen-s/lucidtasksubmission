@@ -78,6 +78,15 @@ const FormulaInput = () => {
     fetchSuggestions(inputValue);
   }, [inputValue]);
 
+  const handleSuggestionClick = (suggestion) => {
+    // Add the clicked suggestion as a new part (tag)
+    if (suggestion.trim()) {
+      addTag(suggestion.trim()); // Add the input value as a new tag
+    }
+    setInputValue(""); // Clear the input field
+    setSuggestions([]); // Clear suggestions
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -97,8 +106,16 @@ const FormulaInput = () => {
       </form>
       {suggestions.length > 0 && Array.isArray(suggestions) && (
         <ul className={styles.suggestionsList}>
-          {suggestions.map((suggestion) => (
-            <li key={suggestion.id} className={styles.suggestionItem}>
+          {suggestions.map((suggestion, index) => (
+            <li
+              key={suggestion.id}
+              style={
+                index === suggestions.length - 1
+                  ? styles.suggestionItemLastChild
+                  : styles.suggestionItem
+              }
+              onClick={() => handleSuggestionClick(suggestion.name)} // Assuming suggestion objects have a 'name' field
+            >
               {suggestion.name}
             </li>
           ))}
